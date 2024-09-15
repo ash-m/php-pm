@@ -4,9 +4,11 @@ namespace PHPPM\Tests;
 
 use PHPPM\Utils;
 
+use PHPUnit\Framework\Attributes\DataProvider;
+
 class UtilsTest extends PhpPmTestCase
 {
-    public function providePaths()
+    public static function providePaths()
     {
         return [
             ['/images/foo.png', '/images/foo.png'],
@@ -24,10 +26,10 @@ class UtilsTest extends PhpPmTestCase
     }
 
     /**
-     * @dataProvider providePaths
      * @param string $path
      * @param string $expected
      */
+    #[DataProvider('providePaths')]
     public function testParseQueryPath($path, $expected)
     {
         $this->assertEquals($expected, Utils::parseQueryPath($path));

@@ -30,7 +30,7 @@ class StopCommand extends Command
         $this->configurePPMOptions($this);
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $config = $this->initializeConfig($input, $output, false);
 

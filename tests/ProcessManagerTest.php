@@ -2,9 +2,11 @@
 
 namespace PHPPM\Tests;
 
+use PHPUnit\Framework\Attributes\DataProvider;
+
 class ProcessManagerTest extends PhpPmTestCase
 {
-    public function provideReplaceHeader()
+    public static function provideReplaceHeader()
     {
         return [
             [
@@ -36,12 +38,11 @@ class ProcessManagerTest extends PhpPmTestCase
     }
 
     /**
-     * @dataProvider provideReplaceHeader
-     *
      * @param string $originHeader
      * @param string $expectedNewHeader
      * @param array $replaceHeaders
      */
+    #[DataProvider('provideReplaceHeader')]
     public function testReplaceHeader($originHeader, $expectedNewHeader, array $replaceHeaders)
     {
         $replaceHeader = $this->getRequestHandlerMethod('replaceHeader');
@@ -49,7 +50,7 @@ class ProcessManagerTest extends PhpPmTestCase
         $this->assertEquals($expectedNewHeader, $replacedHeader);
     }
 
-    public function provideIsHeaderEnd()
+    public static function provideIsHeaderEnd()
     {
         return [
             ["Content-Type: plain/text\r\nX-Real-Ip: 1337.1337.1337.1337\r\n\r\n", true],
@@ -62,11 +63,10 @@ class ProcessManagerTest extends PhpPmTestCase
     }
 
     /**
-     * @dataProvider provideIsHeaderEnd
-     *
      * @param string $header
      * @param boolean $isEnd
      */
+    #[DataProvider('provideIsHeaderEnd')]
     public function testIsHeaderEnd($header, $isEnd)
     {
         $isHeaderEnd = $this->getRequestHandlerMethod('isHeaderEnd');

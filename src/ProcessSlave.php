@@ -306,7 +306,7 @@ class ProcessSlave
         $connector = new UnixConnector($this->loop);
         $unixSocket = $this->getControllerSocketPath(false);
 
-        $connector->connect($unixSocket)->done(
+        $connector->connect($unixSocket)->then(
             function ($controller) {
                 $this->controller = $controller;
 
@@ -343,6 +343,9 @@ class ProcessSlave
                 }
 
                 $this->sendMessage($this->controller, 'register', ['pid' => \getmypid(), 'port' => $port]);
+            },
+            function (Exception $e) {
+                die 'Error: ' . $e->getMessage() . PHP_EOL;
             }
         );
     }

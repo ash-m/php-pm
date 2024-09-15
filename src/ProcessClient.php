@@ -31,7 +31,7 @@ class ProcessClient
         $connector = new UnixConnector($this->loop);
         $unixSocket = $this->getControllerSocketPath(false);
 
-        $connector->connect($unixSocket)->done(
+        $connector->connect($unixSocket)->then(
             function (ConnectionInterface $connection) use ($data, $callback) {
                 $result = '';
 
@@ -44,6 +44,9 @@ class ProcessClient
                 });
 
                 $connection->write(\json_encode($data) . PHP_EOL);
+            },
+            function (Exception $e) {
+                die 'Error: ' . $e->getMessage() . PHP_EOL;
             }
         );
     }

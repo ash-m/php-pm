@@ -26,7 +26,7 @@ class ConfigCommand extends Command
         $this->configurePPMOptions($this);
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $configPath = $this->getConfigPath($input, true);
         if (!$configPath) {
